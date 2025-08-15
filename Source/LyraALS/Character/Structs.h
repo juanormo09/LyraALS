@@ -2,6 +2,7 @@
 #include "CoreMinimal.h"
 #include "Engine/DataTable.h"
 #include "Enums.h"
+#include "PhysicalMaterials/PhysicalMaterial.h"
 #include "Structs.generated.h"
 
 class UAnimSequenceBase;

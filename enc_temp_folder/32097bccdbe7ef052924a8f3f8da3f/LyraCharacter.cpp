@@ -273,14 +273,11 @@ void ALyraCharacter::FireWeapon(bool Value)
 			PlaySoundsWeapons(FName("Barrel"), PistolShoot, Pistol);
 			bCanFire = false;
 			FireResult = LineTraceFire();
-			if (FireResult.bHit)
+			/*if (FireResult.bHit)
 			{
-				if (ImpactShoot && ImpactShootDebrise)
-				{
-					UGameplayStatics::PlaySoundAtLocation(GetWorld(), ImpactShoot, FireResult.ImpactPoint);
-					UGameplayStatics::PlaySoundAtLocation(GetWorld(), ImpactShootDebrise, FireResult.ImpactPoint);
-				}
-			}
+				UGameplayStatics::PlaySoundAtLocation(GetWorld(), ImpactShoot, FireResult.ImpactPoint);
+				UGameplayStatics::PlaySoundAtLocation(GetWorld(), ImpactShootDebrise, FireResult.ImpactPoint);
+			}*/
 			GetWorld()->GetTimerManager().SetTimer(FirePistolTimerHandle, this, &ALyraCharacter::PistolCanFire, 0.5f, false);
 		}
 		else if (GunSelected == EGuns::EGS_Rifle && bCanFire)
@@ -293,15 +290,11 @@ void ALyraCharacter::FireWeapon(bool Value)
 			PlaySoundsWeapons(FName("Barrel"), RifleShoot, Rifle);
 			bCanFire = false;
 			FireResult = LineTraceFire();
-			if (FireResult.bHit)
+			/*if (FireResult.bHit)
 			{
-				if (ImpactShoot && ImpactShootDebrise)
-				{
-					UGameplayStatics::PlaySoundAtLocation(GetWorld(), ImpactShoot, FireResult.ImpactPoint);
-					UGameplayStatics::PlaySoundAtLocation(GetWorld(), ImpactShootDebrise, FireResult.ImpactPoint);
-				}
-				
-			}
+				UGameplayStatics::PlaySoundAtLocation(GetWorld(), ImpactShoot, FireResult.ImpactPoint);
+				UGameplayStatics::PlaySoundAtLocation(GetWorld(), ImpactShootDebrise, FireResult.ImpactPoint);
+			}*/
 			GetWorld()->GetTimerManager().SetTimer(FireRifleTimerHandle, this, &ALyraCharacter::RifleCanFire, 0.2f, false);
 		}
 	}
