@@ -81,6 +81,12 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Sounds | WeaponSounds")
 	TObjectPtr<USoundBase> RifleShoot;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Sounds | WeaponSounds")
+	TObjectPtr<USoundBase> ImpactShoot;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Sounds | WeaponSounds")
+	TObjectPtr<USoundBase> ImpactShootDebrise;
+
 	UPROPERTY(EditAnywhere, Category = "DataTable")
 	TObjectPtr<UDataTable> GunGatesTable;
 
@@ -115,6 +121,8 @@ public:
 
 	UPROPERTY(BlueprintReadWrite)
 	float GroundDistance;
+
+	FWeaponFireResult FireResult;
 
 
 	void SelectedGun(float Value);

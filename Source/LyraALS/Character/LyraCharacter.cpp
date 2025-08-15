@@ -270,9 +270,14 @@ void ALyraCharacter::FireWeapon(bool Value)
 				PlayAnimMontage(ShootPistolMontage);
 				Pistol->PlayAnimation(ShootPistolAnim, false);
 			}
-			bCanFire = false;
-			LineTraceFire();
 			PlaySoundsWeapons(FName("Barrel"), PistolShoot, Pistol);
+			bCanFire = false;
+			FireResult = LineTraceFire();
+			if (FireResult.bHit)
+			{
+				UGameplayStatics::PlaySoundAtLocation(GetWorld(), ImpactShoot, FireResult.ImpactPoint);
+				UGameplayStatics::PlaySoundAtLocation(GetWorld(), ImpactShootDebrise, FireResult.ImpactPoint);
+			}
 			GetWorld()->GetTimerManager().SetTimer(FirePistolTimerHandle, this, &ALyraCharacter::PistolCanFire, 0.5f, false);
 		}
 		else if (GunSelected == EGuns::EGS_Rifle && bCanFire)
@@ -284,7 +289,12 @@ void ALyraCharacter::FireWeapon(bool Value)
 			}
 			PlaySoundsWeapons(FName("Barrel"), RifleShoot, Rifle);
 			bCanFire = false;
-			LineTraceFire();
+			FireResult = LineTraceFire();
+			if (FireResult.bHit)
+			{
+				UGameplayStatics::PlaySoundAtLocation(GetWorld(), ImpactShoot, FireResult.ImpactPoint);
+				UGameplayStatics::PlaySoundAtLocation(GetWorld(), ImpactShootDebrise, FireResult.ImpactPoint);
+			}
 			GetWorld()->GetTimerManager().SetTimer(FireRifleTimerHandle, this, &ALyraCharacter::RifleCanFire, 0.2f, false);
 		}
 	}
