@@ -86,12 +86,6 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Sounds | WeaponSounds")
 	TObjectPtr<USoundBase> ImpactShootDebrise;
-	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Sounds | WeaponSounds")
-	TObjectPtr<USoundBase> ImpactShootGlass;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Sounds | WeaponSounds")
-	TObjectPtr<USoundBase> ImpactShootGlassDebrise;
 
 	UPROPERTY(EditAnywhere, Category = "DataTable")
 	TObjectPtr<UDataTable> GunGatesTable;
@@ -101,8 +95,6 @@ protected:
 	
 	UPROPERTY(Transient)
 	FTimerHandle FireRifleTimerHandle;
-
-	FHitResult OutHit;
 
 public:	
 	// Called every frame

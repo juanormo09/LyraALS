@@ -275,19 +275,10 @@ void ALyraCharacter::FireWeapon(bool Value)
 			FireResult = LineTraceFire();
 			if (FireResult.bHit)
 			{
-				if (FireResult.PhysicMaterial)
+				if (ImpactShoot && ImpactShootDebrise)
 				{
-					EPhysicalSurface Surface = UGameplayStatics::GetSurfaceType(OutHit);
-					if (Surface == SurfaceType1 && ImpactShootGlass && ImpactShootGlassDebrise)
-					{
-						UGameplayStatics::PlaySoundAtLocation(GetWorld(), ImpactShootGlass, FireResult.ImpactPoint);
-						UGameplayStatics::PlaySoundAtLocation(GetWorld(), ImpactShootDebrise, FireResult.ImpactPoint);
-					}
-					else if (ImpactShoot && ImpactShootDebrise)
-					{
-						UGameplayStatics::PlaySoundAtLocation(GetWorld(), ImpactShoot, FireResult.ImpactPoint);
-						UGameplayStatics::PlaySoundAtLocation(GetWorld(), ImpactShootDebrise, FireResult.ImpactPoint);
-					}
+					UGameplayStatics::PlaySoundAtLocation(GetWorld(), ImpactShoot, FireResult.ImpactPoint);
+					UGameplayStatics::PlaySoundAtLocation(GetWorld(), ImpactShootDebrise, FireResult.ImpactPoint);
 				}
 			}
 			GetWorld()->GetTimerManager().SetTimer(FirePistolTimerHandle, this, &ALyraCharacter::PistolCanFire, 0.5f, false);
@@ -304,20 +295,12 @@ void ALyraCharacter::FireWeapon(bool Value)
 			FireResult = LineTraceFire();
 			if (FireResult.bHit)
 			{
-				if (FireResult.PhysicMaterial)
+				if (ImpactShoot && ImpactShootDebrise)
 				{
-					EPhysicalSurface Surface = UGameplayStatics::GetSurfaceType(OutHit);
-					if (Surface == SurfaceType1 && ImpactShootGlass && ImpactShootGlassDebrise)
-					{
-						UGameplayStatics::PlaySoundAtLocation(GetWorld(), ImpactShootGlass, FireResult.ImpactPoint);
-						UGameplayStatics::PlaySoundAtLocation(GetWorld(), ImpactShootDebrise, FireResult.ImpactPoint);
-					}
-					else if (ImpactShoot && ImpactShootDebrise)
-					{
-						UGameplayStatics::PlaySoundAtLocation(GetWorld(), ImpactShoot, FireResult.ImpactPoint);
-						UGameplayStatics::PlaySoundAtLocation(GetWorld(), ImpactShootDebrise, FireResult.ImpactPoint);
-					}
+					UGameplayStatics::PlaySoundAtLocation(GetWorld(), ImpactShoot, FireResult.ImpactPoint);
+					UGameplayStatics::PlaySoundAtLocation(GetWorld(), ImpactShootDebrise, FireResult.ImpactPoint);
 				}
+				
 			}
 			GetWorld()->GetTimerManager().SetTimer(FireRifleTimerHandle, this, &ALyraCharacter::RifleCanFire, 0.2f, false);
 		}
@@ -375,7 +358,7 @@ FWeaponFireResult ALyraCharacter::LineTraceFire()
 	FWeaponFireResult Result;
 
 	TArray<AActor*> ActorsToIgnore;
-	OutHit;
+	FHitResult OutHit;
 	FVector CameraStartLocation = ViewCamera->GetComponentLocation();
 	FVector CameraEndLocation = ViewCamera->GetForwardVector() * 500000.f;
 	Result.bHit = UKismetSystemLibrary::LineTraceSingle(GetWorld(), CameraStartLocation, CameraEndLocation + CameraStartLocation, ETraceTypeQuery::TraceTypeQuery1, false, ActorsToIgnore, EDrawDebugTrace::ForDuration,OutHit, true, FLinearColor::Red, FLinearColor::Green, 2.0f);
