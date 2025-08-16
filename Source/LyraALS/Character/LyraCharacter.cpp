@@ -305,66 +305,6 @@ void ALyraCharacter::FireWeapon(bool Value)
 			GetWorld()->GetTimerManager().SetTimer(FireRifleTimerHandle, this, &ALyraCharacter::RifleCanFire, 0.2f, false);
 		}
 	}
-	/*
-	switch (MovementState)
-	{
-	case EMovement::EM_Walking:
-		if (GunSelected == EGuns::EGS_Pistol && bCanFire)
-		{
-			if (ShootPistolMontage && ShootPistolAnim)
-			{
-				PlayAnimMontage(ShootPistolMontage);
-				Pistol->PlayAnimation(ShootPistolAnim, false);
-			}
-			bCanFire = false;
-			LineTraceFire();
-			PlaySoundsWeapons(FName("Barrel"), PistolShoot, Pistol);
-			GetWorld()->GetTimerManager().SetTimer(FirePistolTimerHandle, this, &ALyraCharacter::PistolCanFire, 0.5f, false);
-		}
-		else if (GunSelected == EGuns::EGS_Rifle && bCanFire)
-		{
-			if (ShootRifleMontage && ShootRifleAnim)
-			{
-				PlayAnimMontage(ShootRifleMontage);
-				Rifle->PlayAnimation(ShootRifleAnim, false);
-			}
-			PlaySoundsWeapons(FName("Barrel"), RifleShoot, Rifle);
-			bCanFire = false;
-			LineTraceFire();
-			GetWorld()->GetTimerManager().SetTimer(FireRifleTimerHandle, this, &ALyraCharacter::RifleCanFire, 0.5f, false);
-		}
-		break;
-	case EMovement::EM_Jogging:
-		break;
-	case EMovement::EM_Crouch:
-		if (GunSelected == EGuns::EGS_Pistol && bCanFire)
-		{
-			if (ShootPistolMontage && ShootPistolAnim)
-			{
-				PlayAnimMontage(ShootPistolMontage);
-				Pistol->PlayAnimation(ShootPistolAnim, false);
-			}
-			PlaySoundsWeapons(FName("Barrel"), PistolShoot, Pistol);
-			LineTraceFire();
-			bCanFire = false;
-			GetWorld()->GetTimerManager().SetTimer(FirePistolTimerHandle, this, &ALyraCharacter::PistolCanFire, 0.5f, false);
-		}
-		else if (GunSelected == EGuns::EGS_Rifle && bCanFire)
-		{
-			if (ShootRifleMontage && ShootRifleAnim)
-			{
-				PlayAnimMontage(ShootRifleMontage);
-				Rifle->PlayAnimation(ShootRifleAnim, false);
-			}
-			bCanFire = false;
-			PlaySoundsWeapons(FName("Barrel"), RifleShoot, Rifle);
-			LineTraceFire();
-			GetWorld()->GetTimerManager().SetTimer(FireRifleTimerHandle, this, &ALyraCharacter::RifleCanFire, 0.5f, false);
-		}
-		break;
-	default:
-		break;
-	}*/
 }
 
 void ALyraCharacter::PistolCanFire()
