@@ -11,6 +11,8 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/DataTable.h"
 #include "Kismet/GameplayStatics.h"
+#include "NiagaraFunctionLibrary.h"
+#include "NiagaraComponent.h"
 
 // Sets default values
 ALyraCharacter::ALyraCharacter()
@@ -290,6 +292,7 @@ void ALyraCharacter::FireWeapon(bool Value)
 					}
 				}
 			}
+			NiagaraWeaponLineTracePistol();
 			GetWorld()->GetTimerManager().SetTimer(FirePistolTimerHandle, this, &ALyraCharacter::PistolCanFire, 0.5f, false);
 		}
 		else if (GunSelected == EGuns::EGS_Rifle && bCanFire)
@@ -319,6 +322,7 @@ void ALyraCharacter::FireWeapon(bool Value)
 					}
 				}
 			}
+			NiagaraWeaponLineTraceRifle();
 			GetWorld()->GetTimerManager().SetTimer(FireRifleTimerHandle, this, &ALyraCharacter::RifleCanFire, 0.2f, false);
 		}
 	}

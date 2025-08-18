@@ -15,6 +15,7 @@ class USkeletalMeshComponent;
 class UAnimMontage;
 class UAnimationAsset;
 class UDataTable;
+class UNiagaraSystem;
 
 
 UCLASS()
@@ -101,8 +102,9 @@ protected:
 	
 	UPROPERTY(Transient)
 	FTimerHandle FireRifleTimerHandle;
-
+	//variable creada para poder accerder outhit del line trace para los sonidos en la funcion en donde se disparan las armas 
 	FHitResult OutHit;
+
 
 public:	
 	// Called every frame
@@ -130,8 +132,8 @@ public:
 	UPROPERTY(BlueprintReadWrite)
 	float GroundDistance;
 
+	UPROPERTY(BlueprintReadWrite)
 	FWeaponFireResult FireResult;
-
 
 	void SelectedGun(float Value);
 	void LookCharacter(FVector2D Value);
@@ -153,4 +155,10 @@ public:
 	
 	UFUNCTION(BlueprintImplementableEvent)
 	void ReverseTimeline();
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void NiagaraWeaponLineTracePistol();
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void NiagaraWeaponLineTraceRifle();
 };
