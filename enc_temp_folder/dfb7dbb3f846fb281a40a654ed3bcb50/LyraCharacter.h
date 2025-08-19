@@ -103,15 +103,6 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapons | Pistol")
 	float PistolClipAmount;
-	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapons | Rifle")
-	float RifleBulletClipSize;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapons | Rifle")
-	float RifleBulletAmount;
-	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapons | Rifle")
-	float RifleClipAmount;
 
 	UPROPERTY(EditAnywhere, Category = "UI")
 	TSubclassOf<UUserWidget> CrosshairWidgetclass;
@@ -151,10 +142,7 @@ public:
 	bool bCanFire = true;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	bool bHaveBulletInPistol = true;
-	
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	bool bHaveBulletInRifle = true;
+	bool bHaveBullet = true;
 
 	//creation of Tmap with key Enum and value Strutc
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -177,7 +165,6 @@ public:
 	void RifleCanFire();
 	void ReloadWeapon(bool Value);
 	bool PistolBulletManager();
-	bool RifleBulletManager();
 	//funcion para los sonidos 
 	void PlaySoundsWeapons(FName BoneName, USoundBase* SoundtoPlay, USkeletalMeshComponent* TargetMesh);
 	//funcion para el lientrace

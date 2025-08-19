@@ -273,7 +273,7 @@ void ALyraCharacter::FireWeapon(bool Value)
 {
 	if (MovementState == EMovement::EM_Walking || MovementState == EMovement::EM_Crouch)
 	{	
-		if (GunSelected == EGuns::EGS_Pistol && bCanFire && bHaveBulletInPistol)
+		if (GunSelected == EGuns::EGS_Pistol && bCanFire && bHaveBullet)
 		{
 			if (ShootPistolMontage && ShootPistolAnim)
 			{
@@ -282,7 +282,7 @@ void ALyraCharacter::FireWeapon(bool Value)
 			}
 			PlaySoundsWeapons(FName("Barrel"), PistolShoot, Pistol);
 			bCanFire = false;
-			bHaveBulletInPistol = PistolBulletManager();
+			bHaveBullet = PistolBulletManager();
 			FireResult = LineTraceFire();
 			if (FireResult.bHit)
 			{
@@ -304,7 +304,7 @@ void ALyraCharacter::FireWeapon(bool Value)
 			NiagaraWeaponLineTracePistol();
 			GetWorld()->GetTimerManager().SetTimer(FirePistolTimerHandle, this, &ALyraCharacter::PistolCanFire, 0.5f, false);
 		}
-		else if (GunSelected == EGuns::EGS_Rifle && bCanFire && bHaveBulletInRifle)
+		else if (GunSelected == EGuns::EGS_Rifle && bCanFire)
 		{
 			if (ShootRifleMontage && ShootRifleAnim)
 			{
@@ -313,7 +313,6 @@ void ALyraCharacter::FireWeapon(bool Value)
 			}
 			PlaySoundsWeapons(FName("Barrel"), RifleShoot, Rifle);
 			bCanFire = false;
-			bHaveBulletInRifle = RifleBulletManager();
 			FireResult = LineTraceFire();
 			if (FireResult.bHit)
 			{
@@ -355,24 +354,25 @@ void ALyraCharacter::ReloadWeapon(bool Value)
 	case EGuns::EGS_Unarmed:
 		break;
 	case EGuns::EGS_Pistol:
+		UE_LOG(LogTemp, Display, TEXT("reload"));
 		if (ReloadPistolMontage && ReloadPistolAnim && PistolClipAmount > 0.0f)
 		{
 			PlayAnimMontage(ReloadPistolMontage);
 			Pistol->PlayAnimation(ReloadPistolAnim, false);
 			PistolClipAmount -= 1.0f;
+			UE_LOG(LogTemp, Warning, TEXT("clipAmount %f"), PistolClipAmount);
 			PistolBulletAmount = PistolBulletClipSize;
-			bHaveBulletInPistol = true;
+			bHaveBullet = true;
+			UE_LOG(LogTemp, Warning, TEXT("bulletAmount %f"), PistolBulletAmount);
+			UE_LOG(LogTemp, Warning, TEXT("clipsize %f"), PistolBulletClipSize);
 		}
 		break;
 	case EGuns::EGS_Rifle:
 		UE_LOG(LogTemp, Warning, TEXT("Reload"));
-		if (ReloadRifleMontage && ReloadRifleAnim && RifleClipAmount > 0.0f)
+		if (ReloadRifleMontage && ReloadRifleAnim)
 		{
 			PlayAnimMontage(ReloadRifleMontage);
 			Rifle->PlayAnimation(ReloadRifleAnim, false);
-			RifleClipAmount -= 1.0f;
-			RifleBulletAmount = RifleBulletClipSize;
-			bHaveBulletInRifle = true;
 		}
 		break;
 	default:
@@ -385,17 +385,9 @@ bool ALyraCharacter::PistolBulletManager()
 	if (PistolBulletAmount > 0.0f)
 	{
 		PistolBulletAmount -= 1.f;
+		return PistolBulletAmount > 0.0f;
 	}
-	return PistolBulletAmount > 0.0f;
-}
-
-bool ALyraCharacter::RifleBulletManager()
-{
-	if (RifleBulletAmount > 0.0f)
-	{
-		RifleBulletAmount -= 1.0f;
-	}
-	return RifleBulletAmount > 0.0f;
+	return false;
 }
 
 void ALyraCharacter::PlaySoundsWeapons(FName BoneName, USoundBase* SoundtoPlay, USkeletalMeshComponent* TargetMesh)
