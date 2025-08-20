@@ -14,6 +14,7 @@
 #include "NiagaraFunctionLibrary.h"
 #include "NiagaraComponent.h"
 #include "Blueprint/UserWidget.h"
+#include "Components/StaticMeshComponent.h"
 
 // Sets default values
 ALyraCharacter::ALyraCharacter()
@@ -31,6 +32,21 @@ ALyraCharacter::ALyraCharacter()
 
 	Rifle = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Rifle"));
 	Rifle->SetupAttachment(GetMesh(), "RifleUnEquipe");
+
+	Helmet = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Helmet"));
+	Helmet->SetupAttachment(GetMesh(), "Helmet");
+
+	TorchHolder = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Torch Holder"));
+	TorchHolder->SetupAttachment(GetMesh(), "TorchHolder");
+
+	Torch = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Torch"));
+	Torch->SetupAttachment(GetMesh(), "Torch");
+
+	Holster = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Holster"));
+	Holster->SetupAttachment(GetMesh(), "PistolHolster");
+
+	HealthBar = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Health Bar"));
+	HealthBar->SetupAttachment(GetMesh(), "HealthBar");
 
 	/*//initialized Tmap Values for each key
 	GateSettings.Add(EMovement::EM_Jogging, FCharacterVelocities{ 
@@ -425,6 +441,34 @@ FWeaponFireResult ALyraCharacter::LineTraceFire()
 		Result.PhysicMaterial = OutHit.PhysMaterial.Get();
 	}
 	return Result;
+}
+
+void ALyraCharacter::IncreaseHealth(float Amount)
+{
+	Health += Amount;
+	if (Health > MaxHealth)
+	{
+		Health = MaxHealth;
+	}
+	else
+	{
+		Health = Health;
+	}
+	HealthBar->SetScalarParameterValueOnMaterials(FName("HealthPercent"), FMath::Clamp(Health, 0.0f, MaxHealth));
+}
+
+void ALyraCharacter::DecreaseHealth(float Amount)
+{
+	Health -= Amount;
+	if (Health < 0.0f)
+	{
+		Health = 0.0f;
+	}
+	else
+	{
+		Health = Health;
+	}
+	HealthBar->SetScalarParameterValueOnMaterials(FName("HealthPercent"), FMath::Clamp(Health, 0.0f, MaxHealth));
 }
 
 

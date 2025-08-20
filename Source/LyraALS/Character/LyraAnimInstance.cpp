@@ -22,7 +22,7 @@ void ULyraAnimInstance::NativeInitializeAnimation()
 void ULyraAnimInstance::NativeUpdateAnimation(float DeltaTime)
 {
 	Super::NativeUpdateAnimation(DeltaTime);
-	Debugs();
+	//Debugs();
 }
 
 

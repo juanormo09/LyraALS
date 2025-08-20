@@ -17,6 +17,7 @@ class UAnimationAsset;
 class UDataTable;
 class UNiagaraSystem;
 class UUSerWidget;
+class UStaticMeshComponent;
 
 
 UCLASS()
@@ -43,6 +44,21 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<USkeletalMeshComponent> Rifle;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TObjectPtr<UStaticMeshComponent> Helmet;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TObjectPtr<UStaticMeshComponent> TorchHolder;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TObjectPtr<UStaticMeshComponent> Torch;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TObjectPtr<UStaticMeshComponent> Holster;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TObjectPtr<UStaticMeshComponent> HealthBar;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = " Animation | Layers")
 	TSubclassOf<ULyraAnimInstance> UnArmedLayer;
@@ -113,6 +129,18 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapons | Rifle")
 	float RifleClipAmount;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Health")
+	float Health;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Health")
+	float MaxHealth;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Health")
+	float Shield;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Health")
+	float MaxShield;
+
 	UPROPERTY(EditAnywhere, Category = "UI")
 	TSubclassOf<UUserWidget> CrosshairWidgetclass;
 
@@ -182,6 +210,12 @@ public:
 	void PlaySoundsWeapons(FName BoneName, USoundBase* SoundtoPlay, USkeletalMeshComponent* TargetMesh);
 	//funcion para el lientrace
 	FWeaponFireResult LineTraceFire();
+
+	UFUNCTION(BlueprintCallable)
+	void IncreaseHealth(float Amount);
+	
+	UFUNCTION(BlueprintCallable)
+	void DecreaseHealth(float Amount);
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void CallTimeline();
