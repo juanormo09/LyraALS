@@ -216,6 +216,9 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	void DecreaseHealth(float Amount);
+	
+	UFUNCTION(BlueprintCallable)
+	void IncreaseShield(float Amount);
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void CallTimeline();

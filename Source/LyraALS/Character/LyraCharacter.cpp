@@ -459,16 +459,43 @@ void ALyraCharacter::IncreaseHealth(float Amount)
 
 void ALyraCharacter::DecreaseHealth(float Amount)
 {
-	Health -= Amount;
-	if (Health < 0.0f)
+	float TempAmount;
+	if (Shield > Amount)
 	{
-		Health = 0.0f;
+		Shield -= Amount;
+	}
+	else if (Shield == Amount)
+	{
+		Shield = 0.0f;
 	}
 	else
 	{
-		Health = Health;
+		TempAmount = Amount -= Shield;
+		Shield = 0.0f;
+		Health -= TempAmount;
+		if (Health < 0.0f)
+		{
+			Health = 0.0f;
+		}
+		else
+		{
+			Health = Health;
+		}
 	}
 	HealthBar->SetScalarParameterValueOnMaterials(FName("HealthPercent"), FMath::Clamp(Health, 0.0f, MaxHealth));
+}
+
+void ALyraCharacter::IncreaseShield(float Amount)
+{
+	Shield += Amount;
+	if (Shield > MaxShield)
+	{
+		Shield = MaxShield;
+	}
+	else
+	{
+		Shield = Shield;
+	}
 }
 
 
