@@ -37,3 +37,12 @@ enum class ERootYawOffsetMode : uint8
 	ERY_BlendOut UMETA(DisplayName = "BlendOut"),
 	ERY_Hold UMETA(DisplayName = "Hold")
 };
+
+UENUM(BlueprintType)
+enum class EItemType : uint8
+{
+	EIT_Health UMETA(DisplayName = "Health"),
+	EIT_Shield UMETA(DisplayName = "Shield"),
+	EIT_PistolClip UMETA(DisplayName = "PistolClip"),
+	EIT_RifleClip UMETA(DisplayName = "RifleClip")
+};

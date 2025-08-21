@@ -131,3 +131,18 @@ public:
 	UPROPERTY(BlueprintReadWrite)
 	bool bHit;
 };
+
+USTRUCT(BlueprintType)
+struct FItem : public FTableRowBase
+{
+	GENERATED_BODY()
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FName Name;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	EItemType ItemType;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	int32 Amount;
+};
