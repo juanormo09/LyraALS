@@ -10,7 +10,6 @@
 #include "Components/StaticMeshComponent.h"
 #include "NiagaraSystem.h"
 #include "NiagaraComponent.h"
-#include "Components/CapsuleComponent.h"
 
 // Sets default values
 AItems::AItems()
@@ -19,16 +18,7 @@ AItems::AItems()
 	PrimaryActorTick.bCanEverTick = true;
 
 	Pad = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Pad"));
-	SetRootComponent(Pad);
-	
-	Weapons = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Weapons"));
-	Weapons->SetupAttachment(Pad);
-
-	Capsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Capsule"));
-	Capsule->SetupAttachment(Pad);
-	
-	Effects = CreateDefaultSubobject<UNiagaraComponent>(TEXT("Niagara Efffects"));
-	Effects->SetupAttachment(Pad);
+	Pad->SetupAttachment(GetRootComponent());
 }
 
 // Called when the game starts or when spawned

@@ -10,7 +10,6 @@ class UDataTable;
 class UStaticMeshComponent;
 class USkeletalMeshComponent;
 class UNiagaraComponent;
-class UCapsuleComponent;
 
 UCLASS()
 class LYRAALS_API AItems : public AActor
@@ -25,25 +24,25 @@ public:
 	TObjectPtr<UStaticMeshComponent> Pad;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TObjectPtr<USkeletalMeshComponent> Weapons;
+	TObjectPtr<USkeletalMeshComponent> Health;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TObjectPtr<USkeletalMeshComponent> Shield;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TObjectPtr<USkeletalMeshComponent> Pistol;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TObjectPtr<USkeletalMeshComponent> Rifle;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<UNiagaraComponent> Effects;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TObjectPtr<UCapsuleComponent> Capsule;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<UDataTable> ItemDataTable;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite);
 	FDataTableRowHandle Item;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite);
-	FLinearColor Health = FLinearColor::Green;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite);
-	FLinearColor Shield = FLinearColor::Blue;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
