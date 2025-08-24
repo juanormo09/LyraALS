@@ -46,3 +46,4 @@ enum class EItemType : uint8
 	EIT_PistolClip UMETA(DisplayName = "PistolClip"),
 	EIT_RifleClip UMETA(DisplayName = "RifleClip")
 };
+

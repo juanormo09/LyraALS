@@ -18,6 +18,7 @@ class UDataTable;
 class UNiagaraSystem;
 class UUSerWidget;
 class UStaticMeshComponent;
+class AKraken;
 
 
 UCLASS()
@@ -28,6 +29,8 @@ class LYRAALS_API ALyraCharacter : public ACharacter
 public:
 	// Sets default values for this character's properties
 	ALyraCharacter();
+
+	TObjectPtr<AKraken> Kraken;
 
 protected:
 	// Called when the game starts or when spawned

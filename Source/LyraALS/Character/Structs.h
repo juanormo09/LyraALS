@@ -129,6 +129,9 @@ public:
 	UPhysicalMaterial* PhysicMaterial;
 
 	UPROPERTY(BlueprintReadWrite)
+	FName BoneNameHit;
+
+	UPROPERTY(BlueprintReadWrite)
 	bool bHit;
 };
 

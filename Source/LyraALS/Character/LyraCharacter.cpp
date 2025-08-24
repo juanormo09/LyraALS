@@ -15,6 +15,8 @@
 #include "NiagaraComponent.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/StaticMeshComponent.h"
+#include "IA/Kraken.h"
+
 
 // Sets default values
 ALyraCharacter::ALyraCharacter()
@@ -86,6 +88,9 @@ void ALyraCharacter::BeginPlay()
 			Crosshair->AddToViewport();
 		}
 	}
+
+	Kraken = Cast<AKraken>(UGameplayStatics::GetActorOfClass(GetWorld(), AKraken::StaticClass()));
+	
 }
 
 // Called every frame
@@ -318,6 +323,10 @@ void ALyraCharacter::FireWeapon(bool Value)
 				}
 			}
 			NiagaraWeaponLineTracePistol();
+			if (FireResult.HitActor == Kraken)
+			{
+				Kraken->DamageKraken(FireResult.BoneNameHit);
+			}
 			GetWorld()->GetTimerManager().SetTimer(FirePistolTimerHandle, this, &ALyraCharacter::PistolCanFire, 0.5f, false);
 		}
 		else if (GunSelected == EGuns::EGS_Rifle && bCanFire && bHaveBulletInRifle)
@@ -439,6 +448,7 @@ FWeaponFireResult ALyraCharacter::LineTraceFire()
 		Result.ImpactNormal = OutHit.ImpactNormal;
 		Result.HitActor = OutHit.GetActor();
 		Result.PhysicMaterial = OutHit.PhysMaterial.Get();
+		Result.BoneNameHit = OutHit.BoneName;
 	}
 	return Result;
 }
