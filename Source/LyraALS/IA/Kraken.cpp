@@ -26,6 +26,8 @@ void AKraken::BeginPlay()
 			HealthEnemy->AddToViewport();
 		}
 	}
+	GetMesh()->OnComponentBeginOverlap.AddDynamic(this, &AKraken::OnOverlapBegin);
+	GetMesh()->OnComponentEndOverlap.AddDynamic(this, &AKraken::OverlapEnd);
 }
 
 // Called every frame
@@ -103,5 +105,13 @@ void AKraken::DamageKraken(FName Bone)
 	}
 	
 	UE_LOG(LogTemp, Warning, TEXT("kraken has recieve damage: %f"), Health);
+}
+
+void AKraken::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+}
+
+void AKraken::OverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
 }
 
