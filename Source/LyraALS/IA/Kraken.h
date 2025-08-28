@@ -8,6 +8,8 @@
 
 class UUSerWidget;
 class UBlackboardComponent;
+class USphereComponent;
+class ALyraCharacter;
 
 UCLASS()
 class LYRAALS_API AKraken : public ACharacter
@@ -29,6 +31,9 @@ protected:
 	TObjectPtr<UUserWidget> HealthEnemy;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TObjectPtr<USphereComponent> BoxCollision;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float Health;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -36,6 +41,12 @@ protected:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float DamageRecieved;
+
+	UPROPERTY(Transient)
+	TObjectPtr<UBlackboardComponent> BlackboardKraken;
+
+	UPROPERTY(Transient)
+	TObjectPtr<ALyraCharacter> Lyra;
 
 
 public:	

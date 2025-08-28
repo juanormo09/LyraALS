@@ -358,6 +358,10 @@ void ALyraCharacter::FireWeapon(bool Value)
 				}
 			}
 			NiagaraWeaponLineTraceRifle();
+			if (FireResult.HitActor == Kraken)
+			{
+				Kraken->DamageKraken(FireResult.BoneNameHit);
+			}
 			GetWorld()->GetTimerManager().SetTimer(FireRifleTimerHandle, this, &ALyraCharacter::RifleCanFire, 0.2f, false);
 		}
 	}
