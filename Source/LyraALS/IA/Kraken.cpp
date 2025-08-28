@@ -8,6 +8,7 @@
 #include "Components/SphereComponent.h"
 #include "Character/LyraCharacter.h"
 #include "Kismet/GameplayStatics.h"
+#include "Kismet/KismetArrayLibrary.h"
 
 // Sets default values
 AKraken::AKraken()
@@ -115,9 +116,22 @@ void AKraken::DamageKraken(FName Bone)
 			Health -= DamageRecieved;
 		}
 	}
+	else
+	{
+		if (DeathMontage)
+		{
+			PlayAnimMontage(DeathMontage);
+			BlackboardKraken->SetValueAsBool(FName("IsKrakenDead"), true);
+		}
+	}
 	
 	BlackboardKraken->SetValueAsObject(FName("Player"), Lyra);
 	UE_LOG(LogTemp, Warning, TEXT("kraken has recieve damage: %f"), Health);
+}
+
+void AKraken::AttackKraken()
+{
+
 }
 
 void AKraken::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)

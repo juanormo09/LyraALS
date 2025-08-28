@@ -10,6 +10,7 @@ class UUSerWidget;
 class UBlackboardComponent;
 class USphereComponent;
 class ALyraCharacter;
+class UAnimMontage;
 
 UCLASS()
 class LYRAALS_API AKraken : public ACharacter
@@ -48,6 +49,14 @@ protected:
 	UPROPERTY(Transient)
 	TObjectPtr<ALyraCharacter> Lyra;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Montages")
+	TObjectPtr<UAnimMontage> DeathMontage;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Montages")
+	TObjectPtr<UAnimMontage> AttackMontage;
+
+	TArray<UAnimMontage*> Attacks;
+
 
 public:	
 	// Called every frame
@@ -58,6 +67,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void DamageKraken(FName Bone);
+
+	UFUNCTION(BlueprintCallable)
+	void AttackKraken();
 
 	UFUNCTION()
 	void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
