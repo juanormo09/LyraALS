@@ -41,6 +41,7 @@ void AKraken::BeginPlay()
 
 	BoxCollision->OnComponentBeginOverlap.AddDynamic(this, &AKraken::OnOverlapBegin);
 	BoxCollision->OnComponentEndOverlap.AddDynamic(this, &AKraken::OverlapEnd);
+	GetMesh()->OnComponentBeginOverlap.AddDynamic(this, &AKraken::OnMeshOverlapBegin);
 }
 
 // Called every frame
@@ -131,19 +132,46 @@ void AKraken::DamageKraken(FName Bone)
 
 void AKraken::AttackKraken()
 {
-
+	DamageRecievedbyKraken = 0;
+	bKrakenIsAttacking = true;
+	if (Attacks.Num() > 0)
+	{
+		int32 RandomIndex = FMath::RandRange(0, Attacks.Num() - 1);
+		UAnimMontage* SelectedAttack = Attacks[RandomIndex];
+		if (SelectedAttack)
+		{
+			PlayAnimMontage(SelectedAttack);
+		}
+		bKrakenIsAttacking = false;
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("No attack montages available."));
+	}
 }
 
 void AKraken::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	ALyraCharacter* LyraCharacter = Cast<ALyraCharacter>(OtherActor);
-	if (OtherActor)
+	if (LyraCharacter)
 	{
 		BlackboardKraken->SetValueAsObject(FName("Player"), LyraCharacter);
 	}
 }
 
+void AKraken::OnMeshOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	ALyraCharacter* LyraCharacter = Cast<ALyraCharacter>(OtherActor);
+	if (LyraCharacter && DamageRecieved <= 2)
+	{
+		Lyra->DecreaseHealth(FMath::RandRange(5.0f, 8.0f));
+		UE_LOG(LogTemp, Warning, TEXT("Kraken atacando"));
+	}	
+	DamageRecievedbyKraken++;
+}
+
 void AKraken::OverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
+	
 }
 
