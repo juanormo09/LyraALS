@@ -323,7 +323,7 @@ void ALyraCharacter::FireWeapon(bool Value)
 				}
 			}
 			NiagaraWeaponLineTracePistol();
-			if (FireResult.HitActor == Kraken)
+			if (FireResult.HitActor == Kraken && Kraken)
 			{
 				Kraken->DamageKraken(FireResult.BoneNameHit);
 			}
